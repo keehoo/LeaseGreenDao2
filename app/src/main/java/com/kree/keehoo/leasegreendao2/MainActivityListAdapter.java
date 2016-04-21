@@ -52,7 +52,7 @@ public class MainActivityListAdapter extends RecyclerView.Adapter<MainActivityLi
         return mData.size();
     }
 
-    public static class ViewHolder extends RecyclerView.ViewHolder {
+    public static class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
 
         public TextView textViewItem;
         public TextView textViewPersonName;
@@ -61,6 +61,11 @@ public class MainActivityListAdapter extends RecyclerView.Adapter<MainActivityLi
             super(itemLayoutView);
             textViewItem = (TextView) itemLayoutView.findViewById(R.id.activity_main_item_item);
             textViewPersonName = (TextView) itemLayoutView.findViewById(R.id.activity_main_item_person_name);
+        }
+
+        @Override
+        public void onClick(View v) {
+
         }
     }
 }

@@ -22,12 +22,7 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        DaoMaster.DevOpenHelper helper = new DaoMaster.DevOpenHelper(this, "lease-db", null);
-        SQLiteDatabase db = helper.getWritableDatabase();
-
-        DaoMaster daoMaster = new DaoMaster(db);
-        DaoSession daoSession = daoMaster.newSession();
-
+        DaoSession daoSession = ((LeaseApplication) getApplicationContext()).getDaoSession();
         LeaseDao leaseDao = daoSession.getLeaseDao();
         List leaseList = leaseDao.loadAll();
 
@@ -36,7 +31,7 @@ public class MainActivity extends AppCompatActivity {
         MainActivityListAdapter adapter = new MainActivityListAdapter(leaseList);
         recyclerView.setAdapter(adapter);
 
-        insertSampleData(daoSession);
+        //insertSampleData(daoSession);
 
 
     }
