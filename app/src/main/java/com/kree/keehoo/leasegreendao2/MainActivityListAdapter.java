@@ -48,6 +48,7 @@ public class MainActivityListAdapter extends
                 .get(position)
                 .getPerson()
                 .getName());
+        holder.setLeaseId( mData.get(position).getId());
     }
 
 
