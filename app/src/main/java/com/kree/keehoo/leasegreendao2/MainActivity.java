@@ -18,6 +18,20 @@ import java.util.List;
 public class MainActivity extends AppCompatActivity {
 
     @Override
+    protected void onResume() {
+        super.onResume();
+        DaoSession daoSession = ((LeaseApplication) getApplicationContext()).getDaoSession();
+
+        LeaseDao leaseDao = daoSession.getLeaseDao();
+        List<Lease> leaseList = leaseDao.loadAll();
+
+        RecyclerView recyclerView = (RecyclerView) findViewById(R.id.main_activity_recyclerView);
+        recyclerView.setLayoutManager(new LinearLayoutManager(this));
+        MainActivityListAdapter adapter = new MainActivityListAdapter(leaseList, this);
+        recyclerView.setAdapter(adapter);
+    }
+
+    @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
@@ -28,13 +42,16 @@ public class MainActivity extends AppCompatActivity {
 
         RecyclerView recyclerView = (RecyclerView) findViewById(R.id.main_activity_recyclerView);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
-        MainActivityListAdapter adapter = new MainActivityListAdapter(leaseList);
+        MainActivityListAdapter adapter = new MainActivityListAdapter(leaseList, this);
         recyclerView.setAdapter(adapter);
 
-        //insertSampleData(daoSession);
+        insertSampleData(daoSession);
 
 
     }
+
+
+
     public void insertSampleData(DaoSession daoSession) {
         Person person = new Person();
         person.setName("John Doe");
